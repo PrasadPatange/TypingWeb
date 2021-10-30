@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Website</title>
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="typeSpeed.css">
+    <!-- <style>
+        .card-header {
+            color: white;
+            background-color: navy;
+        }
+
+        #coutdowm {
+            height:40px;
+            width:90px;
+            background-color: black;
+            color: white;
+            border-radius: 100px;
+            text-align: center;
+        }
+        #msg{
+            height:100px;
+            width: 98%;
+            font-weight: bold;
+            color: yellowgreen;
+            font-size: 20px;
+            font-family: "Roboto"; 
+        }
+
+        .correct {
+            color: green;
+            /* background-color: yellow; */
+        }
+
+        .incorrect {
+        
+            color: red;
+            /* background-color: yellow; */
+            text-decoration: underline;
+        }
+        p{
+           font-family: "Roboto"; 
+        }
+        #text{
+            font-family: "Roboto"; 
+
+        }
+         #coutdowm-position{
+            padding: px;
+        }
+        
+    </style> -->
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mb-5 ">
+        <br>
+        <br>
+        <div class="border  shadow p-3  bg round">
+            <h1 id="text" class="text-center shadow p-3 mb-5  rounded-pill card-header">Welcome To Typing Speed Test 
+            </h1>
+            <!-- ******Timmer******** -->
+            <div id="coutdowm" class="shadow bg round">
+              <p id="coutdowm-position"></p>
+            </div>
+            <!-- -******************** -->
+            
+            <div class="row">
+                <div class="text-center">
+                    <h5 id="heading"></h5>
+                    <br>
+                    <!-- ********FOR DISPLAY************ -->
+                    <div class="mx-auto">
+                        <p class="form-control" id="msg" >Click On Start Button To Check Your Speed ...</p>
+                    </div>
+                    <br>
+
+                </div>
+                <!-- **********FOR INPUT ****************-->
+                <div class="row">
+                    <div class=" mx-auto text-center">
+                        <textarea class="form-control" id="myWords" cols="100" rows="3"
+                            placeholder="Enter Above text..."></textarea>
+
+                        <button type="button" id="btn" class="btn btn-secondary btn-lg mt-3 ms-5">Start</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- <script>
+        // let setOfWords = [
+        //     "Angular is a platform and framework for building single-page client applications using HTML and TypeScript.Components define views, which are sets of screen elements that Angular can choose among and modify according to your program logic and data.",
+        //     "React is a declarative, efficient, and flexible JavaScript library for building user interfaces. It lets you compose complex UIs from small and isolated pieces of code called components.",
+        //     "Node.js (Node) is an open source development platform for executing JavaScript code server-side. Node is useful for developing applications that require a persistent connection from the browser to the server and is often used for real-time applications such as chat, news feeds and web push notifications.",
+        //     "Express is a popular unopinionated web framework, written in JavaScript and hosted within the Node. js runtime environment. This module explains some of the key benefits of the framework, how to set up your development environment and how to perform common web development and deployment tasks."
+        // ];
+
+
+        const RANDOM_QUOTE_API_URL = 'http://api.quotable.io/random';
+
+        function getRandomQuote() {
+            return fetch(RANDOM_QUOTE_API_URL)
+                .then(response => {
+                    return response.json()
+                })
+                .then(data => data.content)
+        }
+
+
+        const msg = document.getElementById('msg');
+        const typeWords = document.getElementById('myWords');
+        const btn = document.getElementById('btn');
+        let startTime, endTime, downloadTimer, arrayQuote;
+
+        const renderNewQuote = (quote) => {
+            msg.innerHTML = ''
+            quote.split('').forEach(character => {
+                const characterSpan = document.createElement('span')
+                characterSpan.innerText = character
+                msg.appendChild(characterSpan)
+            })
+            typeWords.value = null;
+        }
+
+        // Start
+        const playGame = async () => {
+            // let randomWords = Math.floor(Math.random() * setOfWords.length);
+            // const outputMessage = setOfWords[randomWords];
+            const outputMessage = await getRandomQuote();
+     
+            renderNewQuote(outputMessage);
+            arrayQuote = outputMessage;
+
+            // console.log("data", data)
+
+            // console.log(randomWords);
+
+            //***** To Start Time ******
+            let date = new Date();
+            startTime = date.getTime();
+            btn.innerText = "Done";
+            handleTimer();
+        }
+        // ******Done***********
+        const endPlay = () => {
+            let date = new Date();
+            endTime = date.getTime();
+            let TotalTime = ((startTime - endTime) / 1000);
+            // console.log(TotalTime);
+            // Total String
+            let totalStr = typeWords.value;
+            let wordCount = wordCounter(totalStr);
+            // Speed
+            let speed = Math.round((wordCount / TotalTime) * 60);
+
+            let finalMsg = "You Typed Total at " + speed + " words per Minutes.";
+
+            // Compare Words
+            finalMsg += compareWords(msg.innerText, totalStr);
+
+            heading.innerText = finalMsg;
+            clearInterval(downloadTimer);
+            typeWords.setAttribute("disabled", true);
+        }
+
+        // Words Count
+        const wordCounter = (str) => {
+            let response = str.split(" ").length;
+            return response;
+            console.log(response);
+        }
+
+        // Comapare Display and Input Words
+        const compareWords = (str1, str2) => {
+
+            let word1 = str1.split(" ");
+            let word2 = str2.split(" ");
+            let cnt = 0;
+
+            word1.forEach((item, index) => {
+
+                if (item == word2[index]) {
+                    cnt++;
+                }
+
+            });
+            // Wrong Words
+            let errorWords = (word1.length - cnt);
+            return (cnt + " Correct Out of " + word1.length + " and the Total Number of Wrong Words are " + errorWords + ".");
+
+        }
+
+        btn.addEventListener('click', function () {
+            // console.log(this);
+            if (this.innerText == 'Start') {
+                typeWords.disabled = false;
+                playGame();
+            } else if (this.innerText == 'Done') {
+                typeWords.disabled = true;
+                endPlay();
+                this.innerText = "Reset";
+            } else if (this.innerText == "Reset") {
+                heading.innerText = "";
+                typeWords.disabled = false;
+                this.innerText = "Start";
+            }
+
+        });
+
+        const handleTimer = () => {
+            const timerString = document.getElementById("coutdowm-position")
+            let timeleft = 30;
+            timerString.innerText = "Time-Start"
+            downloadTimer = setInterval(() => {
+                timerString.innerText = timeleft;
+                timeleft--;
+                console.log("Set Interval", timeleft);
+                if (timeleft <= 1) {
+                    clearInterval(downloadTimer);
+                    timerString.innerText = "Time-Up"
+                    endPlay();
+                }
+            }, 1000);
+        }
+
+        typeWords.addEventListener('input', () => {
+
+            const quoteDisplayElement = document.getElementById('msg')
+            const quoteInputElement = document.getElementById('myWords')
+
+            const arrayQuote = quoteDisplayElement.querySelectorAll('span')
+            const arrayValue = typeWords.value.split('')
+
+            let correct = true;
+
+            arrayQuote.forEach((characterSpan, index) => {
+                const character = arrayValue[index]
+                if (character == null) {
+                    characterSpan.classList.remove('correct')
+                    characterSpan.classList.remove('incorrect')
+                    correct = false
+                } else if (character === characterSpan.innerText) {
+                    characterSpan.classList.add('correct')
+                    characterSpan.classList.remove('incorrect')
+                } else {
+                    characterSpan.classList.remove('correct')
+                    characterSpan.classList.add('incorrect')
+                    correct = false
+                }
+            })
+        })
+
+        // For Right / Wrong Text
+        // document.addEventListener('keypress',keypress);
+        // function keypress(e){
+        //     var keynum;
+
+        //     if(window.event){
+        //         keynum = e.keyCode;
+        //         console.log("Press Key");
+        //     }else if(e.which){
+        //         keynum = e.which;
+        //     }
+
+        // }
+
+
+
+    </script>  -->
+
+
+
+
+
+<!--************typeSpeed.js*********** -->
+<script src="typeSpeed.js"></script>
+<!-- ************************************ -->
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"
+        integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+

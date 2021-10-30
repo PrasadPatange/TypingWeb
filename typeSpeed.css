@@ -1,0 +1,83 @@
+.round{
+    border-radius: 50px;
+}
+.card-header {
+    color: yellow;
+    background-color: navy;
+    
+    
+}
+#heading{
+    
+    color: midnightblue;
+    font-family: "Roboto";
+    font-weight: bold;
+}
+.bg{
+    background-color: lightgray;
+}
+#coutdowm {
+    height:40px;
+    width:90px;
+    background-color: black;
+    color: yellow;
+    border-color: yellow;
+    border-style: solid;
+    border-radius: 100px;
+    text-align: center;
+    
+}
+#msg{
+    height:100px;
+    width: 98%;
+    font-weight: bold;
+    color: yellowgreen;
+    /* color: white; */
+    font-size: 20px;
+    font-family: "Roboto";
+    background-color:black; 
+    border-radius: 20px ;
+    text-align: center;
+}
+
+.correct {
+    color: green;
+    /* background-color: yellow; */
+}
+
+.incorrect {
+    
+    color: red;
+    /* background-color: yellow; */
+    text-decoration: underline;
+}
+p{
+    font-family: "Roboto"; 
+}
+#text{
+    font-family: "Roboto"; 
+    
+}
+#coutdowm-position{
+    padding: 5px;
+    font-size:large;
+    font-family: "Roboto";
+}
+
+#myWords{
+    /* background-color: lightskyblue; */
+    color: black;
+    border-radius: 20px;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 20px;
+    /* border-style: solid;
+    border-color: grey; */
+}
+#btn{
+    font-family: "Roboto";
+    /* border-radius: 20px; */
+    font-weight: bold;
+    font-size: 20px;
+    
+}
